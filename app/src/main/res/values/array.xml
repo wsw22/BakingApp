@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="dummy_recipes">
+    <item>recipe 1</item>
+    <item>recipe 2</item>
+    <item>recipe 3</item>
+    <item>recipe 4</item>
+    <item>recipe 5</item>
+    <item>recipe 6</item>
+    <item>recipe 7</item>
+    <item>recipe 8</item>
+    <item>recipe 9</item>
+    <item>recipe 10</item>
+  </string-array>
+
+  <string-array name="dummy_ingredients">
+    <item>ingredient 1</item>
+    <item>ingredient 2</item>
+    <item>ingredient 3</item>
+    <item>ingredient 4</item>
+    <item>ingredient 5</item>
+    <item>ingredient 6</item>
+    <item>ingredient 7</item>
+    <item>ingredient 8</item>
+    <item>ingredient 9</item>
+    <item>ingredient 10</item>
+  </string-array>
+
+  <string-array name="dummy_steps">
+    <item>step 1</item>
+    <item>step 2</item>
+    <item>step 3</item>
+    <item>step 4</item>
+    <item>step 5</item>
+    <item>step 6</item>
+    <item>step 7</item>
+    <item>step 8</item>
+    <item>step 9</item>
+    <item>step 10</item>
+  </string-array>
+</resources>

@@ -38,4 +38,9 @@
     <item>step 9</item>
     <item>step 10</item>
   </string-array>
+
+  <string-array name="recipe_detail_pager_titles">
+    <item>@string/pager_title_ingredient</item>
+    <item>@string/pager_title_step</item>
+  </string-array>
 </resources>

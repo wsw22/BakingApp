@@ -1,6 +1,7 @@
 package com.example.wsw.bakingapp.repository
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import com.example.wsw.bakingapp.data.entity.Step
 
 /**
@@ -10,6 +11,6 @@ import com.example.wsw.bakingapp.data.entity.Step
  */
 class StepRepo {
   fun loadStepList(): LiveData<Resource<List<Step>>> {
-
+    return MutableLiveData<Resource<List<Step>>>()
   }
 }

@@ -1,6 +1,7 @@
 package com.example.wsw.bakingapp.repository
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import com.example.wsw.bakingapp.data.entity.Ingredient
 
 /**
@@ -9,7 +10,7 @@ import com.example.wsw.bakingapp.data.entity.Ingredient
  * Repository for Ingredient
  */
 class IngredientRepo {
-  fun loadIngredientList: LiveData<Resource<List<Ingredient>>> {
-
+  fun loadIngredientList(): LiveData<Resource<List<Ingredient>>> {
+    return MutableLiveData<Resource<List<Ingredient>>>()
   }
 }

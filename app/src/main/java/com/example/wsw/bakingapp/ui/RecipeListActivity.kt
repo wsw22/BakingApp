@@ -9,6 +9,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
+import com.bumptech.glide.Glide
+import com.example.wsw.bakingapp.GlideApp
+import com.example.wsw.bakingapp.MyAppGlideModule
 import com.example.wsw.bakingapp.R
 import com.example.wsw.bakingapp.R.layout
 import com.example.wsw.bakingapp.repository.Status.ERROR
@@ -23,18 +26,14 @@ import java.util.Collections
 class RecipeListActivity : AppCompatActivity(), LifecycleRegistryOwner {
   private val lifecycleRegistry = LifecycleRegistry(this)
 
-  private lateinit var listViewModel: RecipeListViewModel
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(layout.recipe_list_activity)
 
-    listViewModel = ViewModelProviders.of(this).get(
-        RecipeListViewModel::class.java)
+    val viewModel = ViewModelProviders.of(this).get(RecipeListViewModel::class.java)
 
-    val adapter = RecipeListAdapter(Collections.emptyList()) {
-      val intentStartDetailActivity = Intent(this,
-          RecipeDetailActivity::class.java)
+    val adapter = RecipeListAdapter(Collections.emptyList(), GlideApp.with(this)) {
+      val intentStartDetailActivity = Intent(this, RecipeDetailActivity::class.java)
       startActivity(intentStartDetailActivity)
     }
     recipe_list_recycler.adapter = adapter
@@ -42,11 +41,11 @@ class RecipeListActivity : AppCompatActivity(), LifecycleRegistryOwner {
     val gridLayoutManager = GridLayoutManager(this, 2)
     recipe_list_recycler.layoutManager = gridLayoutManager
 
-    listViewModel.recipeList.observe(this, Observer { resource ->
+    viewModel.recipeList.observe(this, Observer { resource ->
       if (resource?.data == null) {
-        loading_data_progress.visibility = View.GONE
-        recipe_list_recycler.visibility = View.GONE
-        loading_data_message.visibility = View.VISIBLE
+        recipe_list_recycler.setVisible(false)
+        loading_data_progress.setVisible(false)
+        loading_data_message.setVisible(true)
         loading_data_message.text = getString(R.string.message_have_no_data)
         return@Observer
       }

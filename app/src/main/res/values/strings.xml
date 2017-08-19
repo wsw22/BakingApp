@@ -3,4 +3,7 @@
 
   <string name="pager_title_ingredient">Ingredient</string>
   <string name="pager_title_step">step</string>
+
+  <string name="message_have_no_data">have no data</string>
+  <string name="message_fail_get_data">fail to get data</string>
 </resources>

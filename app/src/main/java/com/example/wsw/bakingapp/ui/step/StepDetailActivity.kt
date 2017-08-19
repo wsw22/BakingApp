@@ -1,9 +1,10 @@
-package com.example.wsw.bakingapp.ui
+package com.example.wsw.bakingapp.ui.step
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.wsw.bakingapp.R
 import com.example.wsw.bakingapp.R.layout
+import com.example.wsw.bakingapp.ui.step.StepDetailFragment.Companion
 
 class StepDetailActivity : AppCompatActivity() {
 

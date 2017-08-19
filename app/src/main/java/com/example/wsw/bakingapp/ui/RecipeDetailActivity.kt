@@ -12,7 +12,8 @@ class RecipeDetailActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.recipe_detail_activity)
 
-    recipe_detail_pager.adapter = RecipeDetailPagerAdapyer(this, supportFragmentManager)
+    recipe_detail_pager.adapter = RecipeDetailPagerAdapter(this,
+        supportFragmentManager)
 
     recipe_detail_tabs.setupWithViewPager(recipe_detail_pager)
   }

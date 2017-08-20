@@ -34,6 +34,7 @@ class RecipeListActivity : AppCompatActivity(), LifecycleRegistryOwner {
 
     val adapter = RecipeListAdapter(Collections.emptyList(), GlideApp.with(this)) {
       val intentStartDetailActivity = Intent(this, RecipeDetailActivity::class.java)
+      intentStartDetailActivity.putExtra(RecipeDetailActivity.RECIPE_ID, it!!.id)
       startActivity(intentStartDetailActivity)
     }
     recipe_list_recycler.adapter = adapter

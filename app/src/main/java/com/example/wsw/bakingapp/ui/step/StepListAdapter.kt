@@ -1,5 +1,6 @@
 package com.example.wsw.bakingapp.ui.step
 
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,29 @@ class StepListAdapter(private var data: List<Step>?,
   override fun onBindViewHolder(holder: StepHolder?, position: Int) = holder!!.bind(
       data?.get(position))
 
+  fun setData(newData: List<Step>?) {
+    when {
+      data == null -> {
+        if (newData == null) {
+          return
+        }
+        data = newData
+        notifyDataSetChanged()
+      }
+      newData == null -> {
+        val oldSize = data!!.size
+        data = null
+        notifyItemRangeChanged(0, oldSize)
+      }
+      else -> {
+        val oldData = data!!
+        data = newData
+        val diffResult = DiffUtil.calculateDiff(StepDiffUtilCallBack(oldData, newData))
+        diffResult.dispatchUpdatesTo(this)
+      }
+    }
+  }
+
   inner class StepHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(item: Step?) = with(itemView) {
       step_list_item_name_text.text = item?.shortDescription
@@ -30,8 +54,18 @@ class StepListAdapter(private var data: List<Step>?,
     }
   }
 
-  fun setData(newData: List<Step>) {
-    TODO(
-        "not implemented") //To change body of created functions use File | Settings | File Templates.
+  inner class StepDiffUtilCallBack(private val oldData: List<Step>,
+      private val newData: List<Step>) : DiffUtil.Callback() {
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+        oldData[oldItemPosition].id == newData[newItemPosition].id
+
+    override fun getOldListSize() = oldData.size
+
+    override fun getNewListSize() = newData.size
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+        oldData[oldItemPosition] == newData[newItemPosition]
+
   }
+
 }

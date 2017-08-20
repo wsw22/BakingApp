@@ -46,7 +46,7 @@ class RecipeListAdapter(
       else -> {
         val oldData: List<Recipe> = data!!
         data = newData
-        val diffResult = DiffUtil.calculateDiff(RecipeDiffCallBcak(newData, oldData))
+        val diffResult = DiffUtil.calculateDiff(RecipeDiffCallBack(newData, oldData))
         diffResult.dispatchUpdatesTo(this)
       }
     }
@@ -64,7 +64,7 @@ class RecipeListAdapter(
     }
   }
 
-  inner class RecipeDiffCallBcak(private val newData: List<Recipe>,
+  inner class RecipeDiffCallBack(private val newData: List<Recipe>,
       private val oldData: List<Recipe>) : DiffUtil.Callback() {
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
         oldData[oldItemPosition].id == newData[newItemPosition].id

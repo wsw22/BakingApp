@@ -11,10 +11,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.wsw.bakingapp.R
+import com.example.wsw.bakingapp.R.layout
 import com.example.wsw.bakingapp.repository.Status.ERROR
 import com.example.wsw.bakingapp.repository.Status.LOADING
 import com.example.wsw.bakingapp.repository.Status.SUCCESS
 import com.example.wsw.bakingapp.setVisible
+import com.example.wsw.bakingapp.ui.RecipeDetailViewModel
 import kotlinx.android.synthetic.main.ingredient_list_fragment.ingredient_list_recycler
 import kotlinx.android.synthetic.main.ingredient_list_fragment.view.ingredient_list_recycler
 import kotlinx.android.synthetic.main.loading_data.loading_data_message
@@ -33,15 +35,18 @@ class IngredientListFragment : Fragment(), LifecycleRegistryOwner {
 
   override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
-    val itemView = inflater!!.inflate(R.layout.ingredient_list_fragment, container, false)
-    val viewModel = ViewModelProviders.of(this).get(
-        IngredientListViewModel::class.java)
+    return inflater!!.inflate(layout.ingredient_list_fragment, container, false)
+  }
+
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    super.onActivityCreated(savedInstanceState)
+    val viewModel = ViewModelProviders.of(activity).get(RecipeDetailViewModel::class.java)
 
     val adapter = IngredientListAdapter(Collections.emptyList())
-    itemView.ingredient_list_recycler.adapter = adapter
+    view!!.ingredient_list_recycler.adapter = adapter
 
     val linearLayoutManger = LinearLayoutManager(context)
-    itemView.ingredient_list_recycler.layoutManager = linearLayoutManger
+    view!!.ingredient_list_recycler.layoutManager = linearLayoutManger
 
     viewModel.ingredientList.observe(this, Observer { resource ->
       if (resource?.data == null) {
@@ -63,8 +68,6 @@ class IngredientListFragment : Fragment(), LifecycleRegistryOwner {
             R.string.message_fail_get_data)
       }
     })
-
-    return itemView
   }
 
   override fun getLifecycle() = lifecycle

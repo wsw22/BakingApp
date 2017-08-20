@@ -8,15 +8,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.wsw.bakingapp.R
+import com.example.wsw.bakingapp.R.layout
 import com.example.wsw.bakingapp.repository.Status.ERROR
 import com.example.wsw.bakingapp.repository.Status.LOADING
 import com.example.wsw.bakingapp.repository.Status.SUCCESS
 import com.example.wsw.bakingapp.setVisible
+import com.example.wsw.bakingapp.ui.RecipeDetailViewModel
 import kotlinx.android.synthetic.main.loading_data.loading_data_message
 import kotlinx.android.synthetic.main.loading_data.loading_data_progress
 import kotlinx.android.synthetic.main.step_list_fragment.step_list_recycler
@@ -35,22 +36,23 @@ class StepListFragment : Fragment(), LifecycleRegistryOwner {
 
   override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
-    val itemView = inflater!!.inflate(R.layout.step_list_fragment, container, false)
-    val viewModel = ViewModelProviders.of(this).get(
-        StepListViewModel::class.java)
+    return inflater!!.inflate(layout.step_list_fragment, container, false)
+  }
+
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    super.onActivityCreated(savedInstanceState)
+    val viewModel = ViewModelProviders.of(activity).get(RecipeDetailViewModel::class.java)
 
     val adapter = StepListAdapter(Collections.emptyList()) {
-      val intentStartStepDetailActivity = Intent(context,
-          StepDetailActivity::class.java)
-      Log.e("AAA", "AAAA")
+      val intentStartStepDetailActivity = Intent(context, StepDetailActivity::class.java)
       startActivity(intentStartStepDetailActivity)
     }
-    itemView.step_list_recycler.adapter = adapter
+    view!!.step_list_recycler.adapter = adapter
 
     val linearLayoutManager = LinearLayoutManager(context)
-    itemView.step_list_recycler.layoutManager = linearLayoutManager
+    view!!.step_list_recycler.layoutManager = linearLayoutManager
 
-    viewModel.loadStepList().observe(this, Observer { resource ->
+    viewModel.stepList.observe(this, Observer { resource ->
       if (resource?.data == null) {
         loading_data_progress.visibility = View.GONE
         step_list_recycler.visibility = View.GONE
@@ -70,8 +72,6 @@ class StepListFragment : Fragment(), LifecycleRegistryOwner {
             R.string.message_fail_get_data)
       }
     })
-
-    return itemView
   }
 
   override fun getLifecycle() = lifecycle

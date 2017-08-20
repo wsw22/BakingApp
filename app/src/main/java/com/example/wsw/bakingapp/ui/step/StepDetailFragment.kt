@@ -17,24 +17,28 @@ import com.example.wsw.bakingapp.setVisible
 import kotlinx.android.synthetic.main.loading_data.loading_data_message
 import kotlinx.android.synthetic.main.loading_data.loading_data_progress
 import kotlinx.android.synthetic.main.step_detail_fragment.step_detail
+import kotlinx.android.synthetic.main.step_detail_fragment.step_detail_description_text
+import kotlinx.android.synthetic.main.step_detail_fragment.step_detail_short_description_text
 
 class StepDetailFragment : Fragment(), LifecycleRegistryOwner {
   private val lifeCycle = LifecycleRegistry(this)
 
   companion object {
+    const val STEP_ID = "step_id"
+
     fun newInstance(): StepDetailFragment {
-      val fragment = StepDetailFragment()
-      return fragment
+      return StepDetailFragment()
     }
   }
 
   override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
     val rootView = inflater!!.inflate(R.layout.step_detail_fragment, container, false)
-    val viewModel = ViewModelProviders.of(this).get(
-        StepDetailViewModel::class.java)
+    val viewModel = ViewModelProviders.of(activity).get(StepDetailViewModel::class.java)
+    // todo handle tablet
+//    val viewModel = ViewModelProviders.of(activity).get(RecipeDetailActivity::class.java)
 
-    viewModel.loadStep().observe(this, Observer { resource ->
+    viewModel.step.observe(this, Observer { resource ->
       if (resource?.data == null) {
         step_detail.visibility = View.GONE
         loading_data_progress.visibility = View.GONE
@@ -48,7 +52,11 @@ class StepDetailFragment : Fragment(), LifecycleRegistryOwner {
       loading_data_message.setVisible(resource.status == ERROR)
 
       if (resource.status == SUCCESS) {
-        // todo show step detail
+        with(resource.data) {
+          // todo display video
+          step_detail_short_description_text.text = shortDescription
+          step_detail_description_text.text = description
+        }
       } else if (resource.status == ERROR) {
         loading_data_message.text = resource.message ?: getString(R.string.message_fail_get_data)
       }

@@ -17,7 +17,7 @@ import com.example.wsw.bakingapp.repository.Resource
  * view model for recipe detail
  */
 class RecipeDetailViewModel(repo: RecipeRepo) : ViewModel() {
-  private val id: MutableLiveData<Int> = MutableLiveData()
+  private val recipeId: MutableLiveData<Int> = MutableLiveData()
 
   val recipe: LiveData<Resource<Recipe>>
 
@@ -25,36 +25,57 @@ class RecipeDetailViewModel(repo: RecipeRepo) : ViewModel() {
 
   val stepList: LiveData<Resource<List<Step>>>
 
+  private val stepId: MutableLiveData<Int> = MutableLiveData()
+
+  val step: LiveData<Resource<Step>>
+
   init {
-    recipe = Transformations.switchMap(id) { recipeId ->
-      if (recipeId == null) {
+    recipe = Transformations.switchMap(recipeId) { newRecipeId ->
+      if (newRecipeId == null) {
         return@switchMap AbsentLiveData<Resource<Recipe>>()
       }
       return@switchMap repo.loadRecipe()
     }
 
-    ingredientList = Transformations.switchMap(id) { recipeId ->
-      if (recipeId == null) {
+    ingredientList = Transformations.switchMap(recipeId) { newRecipeId ->
+      if (newRecipeId == null) {
         return@switchMap AbsentLiveData<Resource<List<Ingredient>>>()
       }
       return@switchMap repo.loadIngredientList()
     }
 
-    stepList = Transformations.switchMap(id) { recipeID ->
-      if (recipeID == null) {
+    stepList = Transformations.switchMap(recipeId) { newRecipeId ->
+      if (newRecipeId == null) {
         return@switchMap AbsentLiveData<Resource<List<Step>>>()
       }
       return@switchMap repo.loadStepList()
     }
+
+    step = Transformations.switchMap(stepId) { newStepId ->
+      if (newStepId == null) {
+        return@switchMap AbsentLiveData<Resource<Step>>()
+      }
+      return@switchMap repo.loadStep(newStepId)
+    }
   }
 
   fun setRecipeId(newId: Int) {
-    if (newId == -1) {
+    if (newId < 0) {
       return
     }
-    if (id.value == newId) {
+    if (recipeId.value == newId) {
       return
     }
-    id.value = newId
+    recipeId.value = newId
+  }
+
+  fun setStepId(newId: Int) {
+    if (newId < 0) {
+      return
+    }
+    if (stepId.value == newId) {
+      return
+    }
+    stepId.value = newId
   }
 }

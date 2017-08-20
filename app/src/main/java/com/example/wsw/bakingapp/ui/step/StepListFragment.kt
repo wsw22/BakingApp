@@ -29,8 +29,7 @@ class StepListFragment : Fragment(), LifecycleRegistryOwner {
 
   companion object {
     fun newInstance(): StepListFragment {
-      val fragment = StepListFragment()
-      return fragment
+      return StepListFragment()
     }
   }
 
@@ -45,6 +44,8 @@ class StepListFragment : Fragment(), LifecycleRegistryOwner {
 
     val adapter = StepListAdapter(Collections.emptyList()) {
       val intentStartStepDetailActivity = Intent(context, StepDetailActivity::class.java)
+      // todo handle tablet
+      intentStartStepDetailActivity.putExtra(StepDetailFragment.STEP_ID, it!!.id)
       startActivity(intentStartStepDetailActivity)
     }
     view!!.step_list_recycler.adapter = adapter

@@ -27,4 +27,8 @@ class RecipeRepo {
   fun loadStepList(): LiveData<Resource<List<Step>>> {
     return MutableLiveData<Resource<List<Step>>>()
   }
+
+  fun loadStep(stepId: Int): LiveData<Resource<Step>> {
+    return MutableLiveData<Resource<Step>>()
+  }
 }

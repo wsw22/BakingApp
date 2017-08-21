@@ -23,11 +23,11 @@ import android.arch.persistence.room.PrimaryKey
         )
     ))
 data class Step(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = ID) val id: Int,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = ID) val id: Int?,
     @ColumnInfo(name = SHORT_DESCRIPTION) val shortDescription: String,
     @ColumnInfo(name = DESCRIPTION) val description: String,
     @ColumnInfo(name = VIDEO_URL) val videoURL: String,
-    @ColumnInfo(name = THUMBNAIL_URL) val thumbnailURL: String,
+    @ColumnInfo(name = THUMBNAIL_URL) val thumbnailURL: String?,
     @ColumnInfo(name = RECIPE_ID) val recipe_id: Int) {
 
   companion object {

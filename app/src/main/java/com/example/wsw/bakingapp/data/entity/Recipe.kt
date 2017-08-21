@@ -6,10 +6,10 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = Recipe.TABLE_NAME)
 data class Recipe(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = ID) val id: Int,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = ID) val id: Int?,
     @ColumnInfo(name = NAME) val name: String,
     @ColumnInfo(name = SERVINGS) val servings: Int,
-    @ColumnInfo(name = IMAGE_URI) val imageUri: String) {
+    @ColumnInfo(name = IMAGE_URI) val imageUri: String?) {
 
   companion object {
     const val TABLE_NAME = "recipe"

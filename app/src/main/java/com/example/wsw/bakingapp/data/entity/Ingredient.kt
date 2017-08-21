@@ -21,7 +21,7 @@ import android.arch.persistence.room.PrimaryKey
         )
     ))
 data class Ingredient(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = ID) val id: Int,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = ID) val id: Int?,
     @ColumnInfo(name = QUANTITY) val quantity: Double,
     @ColumnInfo(name = MEASURE) val measure: String,
     @ColumnInfo(name = NAME) val name: String,

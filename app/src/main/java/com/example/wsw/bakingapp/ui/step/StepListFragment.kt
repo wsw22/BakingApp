@@ -17,7 +17,7 @@ import com.example.wsw.bakingapp.repository.Status.ERROR
 import com.example.wsw.bakingapp.repository.Status.LOADING
 import com.example.wsw.bakingapp.repository.Status.SUCCESS
 import com.example.wsw.bakingapp.setVisible
-import com.example.wsw.bakingapp.ui.RecipeDetailViewModel
+import com.example.wsw.bakingapp.viewModel.RecipeDetailViewModel
 import kotlinx.android.synthetic.main.loading_data.loading_data_message
 import kotlinx.android.synthetic.main.loading_data.loading_data_progress
 import kotlinx.android.synthetic.main.step_list_fragment.step_list_recycler
@@ -40,7 +40,8 @@ class StepListFragment : Fragment(), LifecycleRegistryOwner {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    val viewModel = ViewModelProviders.of(activity).get(RecipeDetailViewModel::class.java)
+    val viewModel = ViewModelProviders.of(activity).get(
+        RecipeDetailViewModel::class.java)
 
     val adapter = StepListAdapter(Collections.emptyList()) {
       val intentStartStepDetailActivity = Intent(context, StepDetailActivity::class.java)

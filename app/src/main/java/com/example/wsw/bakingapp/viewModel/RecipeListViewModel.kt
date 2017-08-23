@@ -1,4 +1,4 @@
-package com.example.wsw.bakingapp.ui
+package com.example.wsw.bakingapp.viewModel
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.wsw.bakingapp.R
 import com.example.wsw.bakingapp.R.layout
+import com.example.wsw.bakingapp.viewModel.StepDetailViewModel
 
 class StepDetailActivity : AppCompatActivity() {
 
@@ -13,7 +14,8 @@ class StepDetailActivity : AppCompatActivity() {
     setContentView(layout.step_detail_activity)
 
     if (savedInstanceState == null) {
-      val viewModel = ViewModelProviders.of(this).get(StepDetailViewModel::class.java)
+      val viewModel = ViewModelProviders.of(this).get(
+          StepDetailViewModel::class.java)
       viewModel.setStepId(intent.getIntExtra(StepDetailFragment.STEP_ID, -1))
 
       val stepDetailFragment = StepDetailFragment.newInstance()

@@ -1,4 +1,4 @@
-package com.example.wsw.bakingapp.ui
+package com.example.wsw.bakingapp.viewModel
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
@@ -34,21 +34,21 @@ class RecipeDetailViewModel(repo: RecipeRepo) : ViewModel() {
       if (newRecipeId == null) {
         return@switchMap AbsentLiveData<Resource<Recipe>>()
       }
-      return@switchMap repo.loadRecipe()
+      return@switchMap repo.loadRecipe(newRecipeId)
     }
 
     ingredientList = Transformations.switchMap(recipeId) { newRecipeId ->
       if (newRecipeId == null) {
         return@switchMap AbsentLiveData<Resource<List<Ingredient>>>()
       }
-      return@switchMap repo.loadIngredientList()
+      return@switchMap repo.loadIngredientList(newRecipeId)
     }
 
     stepList = Transformations.switchMap(recipeId) { newRecipeId ->
       if (newRecipeId == null) {
         return@switchMap AbsentLiveData<Resource<List<Step>>>()
       }
-      return@switchMap repo.loadStepList()
+      return@switchMap repo.loadStepList(newRecipeId)
     }
 
     step = Transformations.switchMap(stepId) { newStepId ->

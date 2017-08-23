@@ -14,6 +14,7 @@ import com.example.wsw.bakingapp.repository.Status.ERROR
 import com.example.wsw.bakingapp.repository.Status.LOADING
 import com.example.wsw.bakingapp.repository.Status.SUCCESS
 import com.example.wsw.bakingapp.setVisible
+import com.example.wsw.bakingapp.viewModel.StepDetailViewModel
 import kotlinx.android.synthetic.main.loading_data.loading_data_message
 import kotlinx.android.synthetic.main.loading_data.loading_data_progress
 import kotlinx.android.synthetic.main.step_detail_fragment.step_detail
@@ -34,7 +35,8 @@ class StepDetailFragment : Fragment(), LifecycleRegistryOwner {
   override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
     val rootView = inflater!!.inflate(R.layout.step_detail_fragment, container, false)
-    val viewModel = ViewModelProviders.of(activity).get(StepDetailViewModel::class.java)
+    val viewModel = ViewModelProviders.of(activity).get(
+        StepDetailViewModel::class.java)
     // todo handle tablet
 //    val viewModel = ViewModelProviders.of(activity).get(RecipeDetailActivity::class.java)
 

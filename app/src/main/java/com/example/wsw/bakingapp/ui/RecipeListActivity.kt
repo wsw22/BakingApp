@@ -8,16 +8,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
-import android.view.View
-import com.bumptech.glide.Glide
 import com.example.wsw.bakingapp.GlideApp
-import com.example.wsw.bakingapp.MyAppGlideModule
 import com.example.wsw.bakingapp.R
 import com.example.wsw.bakingapp.R.layout
 import com.example.wsw.bakingapp.repository.Status.ERROR
 import com.example.wsw.bakingapp.repository.Status.LOADING
 import com.example.wsw.bakingapp.repository.Status.SUCCESS
 import com.example.wsw.bakingapp.setVisible
+import com.example.wsw.bakingapp.viewModel.RecipeListViewModel
 import kotlinx.android.synthetic.main.loading_data.loading_data_message
 import kotlinx.android.synthetic.main.loading_data.loading_data_progress
 import kotlinx.android.synthetic.main.recipe_list_activity.recipe_list_recycler
@@ -30,7 +28,8 @@ class RecipeListActivity : AppCompatActivity(), LifecycleRegistryOwner {
     super.onCreate(savedInstanceState)
     setContentView(layout.recipe_list_activity)
 
-    val viewModel = ViewModelProviders.of(this).get(RecipeListViewModel::class.java)
+    val viewModel = ViewModelProviders.of(this).get(
+        RecipeListViewModel::class.java)
 
     val adapter = RecipeListAdapter(Collections.emptyList(), GlideApp.with(this)) {
       val intentStartDetailActivity = Intent(this, RecipeDetailActivity::class.java)

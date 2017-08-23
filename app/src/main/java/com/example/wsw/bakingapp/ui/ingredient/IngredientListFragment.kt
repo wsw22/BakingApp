@@ -16,7 +16,7 @@ import com.example.wsw.bakingapp.repository.Status.ERROR
 import com.example.wsw.bakingapp.repository.Status.LOADING
 import com.example.wsw.bakingapp.repository.Status.SUCCESS
 import com.example.wsw.bakingapp.setVisible
-import com.example.wsw.bakingapp.ui.RecipeDetailViewModel
+import com.example.wsw.bakingapp.viewModel.RecipeDetailViewModel
 import kotlinx.android.synthetic.main.ingredient_list_fragment.ingredient_list_recycler
 import kotlinx.android.synthetic.main.ingredient_list_fragment.view.ingredient_list_recycler
 import kotlinx.android.synthetic.main.loading_data.loading_data_message
@@ -40,7 +40,8 @@ class IngredientListFragment : Fragment(), LifecycleRegistryOwner {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    val viewModel = ViewModelProviders.of(activity).get(RecipeDetailViewModel::class.java)
+    val viewModel = ViewModelProviders.of(activity).get(
+        RecipeDetailViewModel::class.java)
 
     val adapter = IngredientListAdapter(Collections.emptyList())
     view!!.ingredient_list_recycler.adapter = adapter

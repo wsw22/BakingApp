@@ -27,7 +27,9 @@ class RateLimit<in KEY>(timeout: Long, timeUnit: TimeUnit) {
     return false
   }
 
-  fun reset(key: KEY) = timestamps.remove(key)
+  fun reset(key: KEY) {
+    timestamps.remove(key)
+  }
 
   private fun now() = SystemClock.uptimeMillis()
 }

@@ -1,6 +1,8 @@
 package com.example.wsw.bakingapp.data
 
 import android.arch.persistence.room.Database
+import android.arch.persistence.room.Room
+import android.arch.persistence.room.RoomDatabase
 import com.example.wsw.bakingapp.data.dao.IngredientDao
 import com.example.wsw.bakingapp.data.dao.RecipeDao
 import com.example.wsw.bakingapp.data.dao.StepDao
@@ -14,7 +16,7 @@ import com.example.wsw.bakingapp.data.entity.Step
  * database for app
  */
 @Database(entities = arrayOf(Recipe::class, Ingredient::class, Step::class), version = 1)
-abstract class BakingDatabase {
+abstract class BakingDatabase : RoomDatabase() {
   abstract fun recipeDao(): RecipeDao
 
   abstract fun ingredientDao(): IngredientDao

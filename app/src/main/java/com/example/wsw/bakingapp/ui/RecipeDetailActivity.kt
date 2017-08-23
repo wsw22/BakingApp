@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.wsw.bakingapp.R
+import com.example.wsw.bakingapp.viewModel.RecipeDetailViewModel
 import kotlinx.android.synthetic.main.recipe_detail_activity.recipe_detail_pager
 import kotlinx.android.synthetic.main.recipe_detail_activity.recipe_detail_tabs
 
@@ -19,7 +20,8 @@ class RecipeDetailActivity : AppCompatActivity(), LifecycleRegistryOwner {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.recipe_detail_activity)
-    val viewModel = ViewModelProviders.of(this).get(RecipeDetailViewModel::class.java)
+    val viewModel = ViewModelProviders.of(this).get(
+        RecipeDetailViewModel::class.java)
 
     if (intent != null && intent.hasExtra(RECIPE_ID)) {
       viewModel.setRecipeId(intent.getIntExtra(RECIPE_ID, -1))

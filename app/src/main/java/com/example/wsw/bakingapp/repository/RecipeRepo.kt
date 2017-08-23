@@ -24,7 +24,8 @@ class RecipeRepo(
 
   fun loadRecipeList(): LiveData<Resource<List<Recipe>>> {
     return object : NetworkBoundResource<List<Recipe>, List<RecipeListResponse>>(appExecutors) {
-      override fun saveCallResult(callResult: List<RecipeListResponse>) = writeIntoDatabase(callResult)
+      override fun saveCallResult(callResult: List<RecipeListResponse>) = writeIntoDatabase(
+          callResult)
 
       override fun shouldFetch(data: List<Recipe>?) =
           data == null || data.isEmpty() || rateLimit.shouldFetch("recipe_list")
@@ -33,12 +34,14 @@ class RecipeRepo(
 
       override fun createCall() = bakingApi.getRecipeList()
 
+      override fun onFetchFailed() = rateLimit.reset("recipe_list")
     }.asLiveData()
   }
 
   fun loadRecipe(recipeId: Int): LiveData<Resource<Recipe>> {
     return object : NetworkBoundResource<Recipe, List<RecipeListResponse>>(appExecutors) {
-      override fun saveCallResult(callResult: List<RecipeListResponse>) = writeIntoDatabase(callResult)
+      override fun saveCallResult(callResult: List<RecipeListResponse>) = writeIntoDatabase(
+          callResult)
 
       override fun shouldFetch(data: Recipe?) = data == null
 
@@ -51,7 +54,8 @@ class RecipeRepo(
 
   fun loadIngredientList(recipeId: Int): LiveData<Resource<List<Ingredient>>> {
     return object : NetworkBoundResource<List<Ingredient>, List<RecipeListResponse>>(appExecutors) {
-      override fun saveCallResult(callResult: List<RecipeListResponse>) = writeIntoDatabase(callResult)
+      override fun saveCallResult(callResult: List<RecipeListResponse>) = writeIntoDatabase(
+          callResult)
 
       override fun shouldFetch(data: List<Ingredient>?) = data == null || data.isEmpty()
 
@@ -63,7 +67,8 @@ class RecipeRepo(
 
   fun loadStepList(recipeId: Int): LiveData<Resource<List<Step>>> {
     return object : NetworkBoundResource<List<Step>, List<RecipeListResponse>>(appExecutors) {
-      override fun saveCallResult(callResult: List<RecipeListResponse>) = writeIntoDatabase(callResult)
+      override fun saveCallResult(callResult: List<RecipeListResponse>) = writeIntoDatabase(
+          callResult)
 
       override fun shouldFetch(data: List<Step>?) = data == null || data.isEmpty()
 
@@ -75,7 +80,8 @@ class RecipeRepo(
 
   fun loadStep(stepId: Int): LiveData<Resource<Step>> {
     return object : NetworkBoundResource<Step, List<RecipeListResponse>>(appExecutors) {
-      override fun saveCallResult(callResult: List<RecipeListResponse>) = writeIntoDatabase(callResult)
+      override fun saveCallResult(callResult: List<RecipeListResponse>) = writeIntoDatabase(
+          callResult)
 
       override fun shouldFetch(data: Step?) = data == null
 

@@ -1,22 +1,28 @@
 package com.example.wsw.bakingapp.viewModel
 
+import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
-import android.arch.lifecycle.ViewModel
 import com.example.wsw.bakingapp.AbsentLiveData
+import com.example.wsw.bakingapp.MyApp
 import com.example.wsw.bakingapp.data.entity.Ingredient
 import com.example.wsw.bakingapp.data.entity.Recipe
 import com.example.wsw.bakingapp.data.entity.Step
 import com.example.wsw.bakingapp.repository.RecipeRepo
 import com.example.wsw.bakingapp.repository.Resource
+import javax.inject.Inject
 
 /**
  * Created by wsw on 17-8-19.
  *
  * view model for recipe detail
  */
-class RecipeDetailViewModel(repo: RecipeRepo) : ViewModel() {
+class RecipeDetailViewModel(myApp: Application) : AndroidViewModel(myApp) {
+  @Inject
+  lateinit var repo: RecipeRepo
+
   private val recipeId: MutableLiveData<Int> = MutableLiveData()
 
   val recipe: LiveData<Resource<Recipe>>
@@ -30,6 +36,12 @@ class RecipeDetailViewModel(repo: RecipeRepo) : ViewModel() {
   val step: LiveData<Resource<Step>>
 
   init {
+    if (myApp is MyApp) {
+      myApp.appComponent.inject(this)
+    } else {
+      throw IllegalArgumentException("application must be MyApp")
+    }
+
     recipe = Transformations.switchMap(recipeId) { newRecipeId ->
       if (newRecipeId == null) {
         return@switchMap AbsentLiveData<Resource<Recipe>>()

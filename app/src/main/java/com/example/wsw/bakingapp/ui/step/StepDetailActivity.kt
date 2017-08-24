@@ -6,10 +6,12 @@ import android.support.v7.app.AppCompatActivity
 import com.example.wsw.bakingapp.R
 import com.example.wsw.bakingapp.R.layout
 import com.example.wsw.bakingapp.viewModel.StepDetailViewModel
+import dagger.android.AndroidInjection
 
 class StepDetailActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(layout.step_detail_activity)
 

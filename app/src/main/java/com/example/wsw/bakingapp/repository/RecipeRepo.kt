@@ -9,13 +9,14 @@ import com.example.wsw.bakingapp.data.entity.Ingredient
 import com.example.wsw.bakingapp.data.entity.Recipe
 import com.example.wsw.bakingapp.data.entity.Step
 import java.util.concurrent.TimeUnit.MINUTES
+import javax.inject.Inject
 
 /**
  * Created by wsw on 17-8-17.
  *
  * Repository for Recipe
  */
-class RecipeRepo(
+class RecipeRepo @Inject constructor(
     private val appExecutors: AppExecutors,
     private val db: BakingDatabase,
     private val bakingApi: BakingApi

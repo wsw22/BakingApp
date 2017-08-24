@@ -2,6 +2,7 @@ package com.example.wsw.bakingapp.di
 
 import android.app.Application
 import android.arch.persistence.room.Room
+import android.content.Context
 import com.example.wsw.bakingapp.api.BakingApi
 import com.example.wsw.bakingapp.api.LiveDataCallAdapterFactory
 import com.example.wsw.bakingapp.api.RecipeListDeserializer
@@ -17,10 +18,9 @@ import javax.inject.Singleton
 /**
  * Created by wsw on 17-8-22.
  */
+
 @Module
-@Singleton
 class AppModule {
-  @Singleton
   @Provides
   fun provideBakingApi(): BakingApi {
     val gsonBuilder = GsonBuilder()
@@ -33,9 +33,7 @@ class AppModule {
         .create(BakingApi::class.java)
   }
 
-  @Singleton
   @Provides
-  fun provideDb(app: Application): BakingDatabase = Room.databaseBuilder(app,
-      BakingDatabase::class.java,
-      "baking.db").build()
+  fun provideDb(app: Application): BakingDatabase =
+      Room.databaseBuilder(app, BakingDatabase::class.java, "baking.db").build()
 }

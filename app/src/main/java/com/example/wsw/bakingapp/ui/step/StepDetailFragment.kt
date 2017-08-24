@@ -15,15 +15,16 @@ import com.example.wsw.bakingapp.repository.Status.LOADING
 import com.example.wsw.bakingapp.repository.Status.SUCCESS
 import com.example.wsw.bakingapp.setVisible
 import com.example.wsw.bakingapp.viewModel.StepDetailViewModel
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.loading_data.loading_data_message
 import kotlinx.android.synthetic.main.loading_data.loading_data_progress
 import kotlinx.android.synthetic.main.step_detail_fragment.step_detail
 import kotlinx.android.synthetic.main.step_detail_fragment.step_detail_description_text
 import kotlinx.android.synthetic.main.step_detail_fragment.step_detail_short_description_text
+import javax.inject.Inject
 
-class StepDetailFragment : Fragment(), LifecycleRegistryOwner {
-  private val lifeCycle = LifecycleRegistry(this)
-
+class StepDetailFragment : Fragment(), LifecycleRegistryOwner, HasSupportFragmentInjector {
   companion object {
     const val STEP_ID = "step_id"
 
@@ -31,6 +32,11 @@ class StepDetailFragment : Fragment(), LifecycleRegistryOwner {
       return StepDetailFragment()
     }
   }
+
+  private val lifeCycle = LifecycleRegistry(this)
+
+  @Inject
+  lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
 
   override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
@@ -68,4 +74,6 @@ class StepDetailFragment : Fragment(), LifecycleRegistryOwner {
   }
 
   override fun getLifecycle() = lifeCycle
+
+  override fun supportFragmentInjector() = fragmentInjector
 }

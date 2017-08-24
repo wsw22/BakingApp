@@ -3,6 +3,7 @@ package com.example.wsw.bakingapp.api
 import android.arch.lifecycle.LiveData
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
+import timber.log.Timber
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
@@ -10,12 +11,12 @@ import java.lang.reflect.Type
  * Created by wsw on 17-8-22.
  */
 class LiveDataCallAdapterFactory : CallAdapter.Factory() {
-  override fun get(returnType: Type, annotations: Array<out Annotation>?,
+  override fun get(returnType: Type, annotations: Array<Annotation>,
       retrofit: Retrofit): CallAdapter<*, *>? {
 //    LiveData<ApiResponse<>>>
 
 //    LiveData
-    if (getRawType(returnType) != LiveData::class) {
+    if (getRawType(returnType) != LiveData::class.java) {
       return null
     }
 
@@ -25,7 +26,7 @@ class LiveDataCallAdapterFactory : CallAdapter.Factory() {
 //    ApiResponse
     val rawObservableType = getRawType(observableType)
 
-    if (rawObservableType != ApiResponse::class) {
+    if (rawObservableType != ApiResponse::class.java) {
       throw IllegalArgumentException("type must be a resource")
     }
 

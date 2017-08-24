@@ -8,6 +8,7 @@ import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import timber.log.Timber
 import java.lang.reflect.Type
 
 /**
@@ -21,10 +22,11 @@ class RecipeListDeserializer : JsonDeserializer<RecipeListResponse> {
     val stepList: MutableList<Step> = mutableListOf()
 
     val recipeJson = json.asJsonObject
+    Timber.e(json.toString())
 
     val recipeId: Int = recipeJson["id"].asInt
     val recipeName: String = recipeJson["name"].asString
-    val servings: Int = recipeJson["serbings"].asInt
+    val servings: Int = recipeJson["servings"].asInt
     val image: String? = recipeJson["image"].asString
 
     recipe = Recipe(null, recipeName, servings, image)

@@ -5,7 +5,9 @@ import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 import java.lang.reflect.Type
+import java.sql.Time
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -24,10 +26,13 @@ class LiveDataCallAdapter<R>(private val responseType: Type) :
         if (started.compareAndSet(false, true)) {
           call.enqueue(object : Callback<R> {
             override fun onFailure(call: Call<R>, t: Throwable) {
+              Timber.e("fail")
+              Timber.e(t.message)
               postValue(ApiResponse(t))
             }
 
             override fun onResponse(call: Call<R>, response: Response<R>) {
+              Timber.e("success")
               postValue(ApiResponse(response))
             }
           })

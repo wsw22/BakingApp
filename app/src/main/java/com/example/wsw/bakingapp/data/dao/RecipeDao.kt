@@ -1,6 +1,7 @@
 package com.example.wsw.bakingapp.data.dao
 
 import android.arch.lifecycle.LiveData
+import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
@@ -11,6 +12,7 @@ import com.example.wsw.bakingapp.data.entity.Recipe
  *
  * dao for recipe
  */
+@Dao
 interface RecipeDao {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   fun insertRecipe(recipe: Recipe)

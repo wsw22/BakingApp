@@ -6,6 +6,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -43,11 +44,17 @@ class IngredientListFragment : Fragment(), LifecycleRegistryOwner {
     val viewModel = ViewModelProviders.of(activity).get(
         RecipeDetailViewModel::class.java)
 
+//    adapter
     val adapter = IngredientListAdapter(Collections.emptyList())
-    view!!.ingredient_list_recycler.adapter = adapter
+    ingredient_list_recycler.adapter = adapter
 
+//    layout manager
     val linearLayoutManger = LinearLayoutManager(context)
-    view!!.ingredient_list_recycler.layoutManager = linearLayoutManger
+    ingredient_list_recycler.layoutManager = linearLayoutManger
+
+//    divider
+    val divider = DividerItemDecoration(context, linearLayoutManger.orientation)
+    ingredient_list_recycler.addItemDecoration(divider)
 
     viewModel.ingredientList.observe(this, Observer { resource ->
       if (resource?.data == null) {

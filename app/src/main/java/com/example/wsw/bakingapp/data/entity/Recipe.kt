@@ -2,11 +2,12 @@ package com.example.wsw.bakingapp.data.entity
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Index
 import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = Recipe.TABLE_NAME)
 data class Recipe(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = ID) val id: Int?,
+    @PrimaryKey @ColumnInfo(name = ID) val id: Int,
     @ColumnInfo(name = NAME) val name: String,
     @ColumnInfo(name = SERVINGS) val servings: Int,
     @ColumnInfo(name = IMAGE_URI) val imageUri: String?) {

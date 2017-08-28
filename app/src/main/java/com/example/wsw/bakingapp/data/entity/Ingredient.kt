@@ -10,7 +10,7 @@ import android.arch.persistence.room.PrimaryKey
     tableName = Ingredient.TABLE_NAME,
     indices = arrayOf(
         Index(
-            value = Ingredient.RECIPE_ID,
+            value = *arrayOf(Ingredient.RECIPE_ID, Ingredient.NAME),
             unique = true
         )),
     foreignKeys = arrayOf(

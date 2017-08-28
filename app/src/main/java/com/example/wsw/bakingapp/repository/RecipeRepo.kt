@@ -1,6 +1,7 @@
 package com.example.wsw.bakingapp.repository
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MediatorLiveData
 import com.example.wsw.bakingapp.AppExecutors
 import com.example.wsw.bakingapp.api.BakingApi
 import com.example.wsw.bakingapp.api.RecipeListResponse
@@ -8,6 +9,7 @@ import com.example.wsw.bakingapp.data.BakingDatabase
 import com.example.wsw.bakingapp.data.entity.Ingredient
 import com.example.wsw.bakingapp.data.entity.Recipe
 import com.example.wsw.bakingapp.data.entity.Step
+import timber.log.Timber
 import java.util.concurrent.TimeUnit.MINUTES
 import javax.inject.Inject
 
@@ -31,7 +33,10 @@ class RecipeRepo @Inject constructor(
       override fun shouldFetch(data: List<Recipe>?) =
           data == null || data.isEmpty() || rateLimit.shouldFetch("recipe_list")
 
-      override fun loadFromDb() = db.recipeDao().loadAllRecipes()
+      override fun loadFromDb(): LiveData<List<Recipe>> {
+        Timber.e("load")
+        return db.recipeDao().loadAllRecipes()
+      }
 
       override fun createCall() = bakingApi.getRecipeList()
 

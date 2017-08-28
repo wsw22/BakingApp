@@ -29,7 +29,7 @@ class RecipeListDeserializer : JsonDeserializer<RecipeListResponse> {
     val servings: Int = recipeJson["servings"].asInt
     val image: String? = recipeJson["image"].asString
 
-    recipe = Recipe(null, recipeName, servings, image)
+    recipe = Recipe(recipeId, recipeName, servings, image)
 
     val ingredients: JsonArray = recipeJson["ingredients"].asJsonArray
     ingredients.forEach { ingredient: JsonElement ->

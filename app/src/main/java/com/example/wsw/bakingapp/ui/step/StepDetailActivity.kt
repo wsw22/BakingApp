@@ -9,15 +9,13 @@ import com.example.wsw.bakingapp.viewModel.StepDetailViewModel
 import dagger.android.AndroidInjection
 
 class StepDetailActivity : AppCompatActivity() {
-
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(layout.step_detail_activity)
 
     if (savedInstanceState == null) {
-      val viewModel = ViewModelProviders.of(this).get(
-          StepDetailViewModel::class.java)
+      val viewModel = ViewModelProviders.of(this).get(StepDetailViewModel::class.java)
       viewModel.setStepId(intent.getIntExtra(StepDetailFragment.STEP_ID, -1))
 
       val stepDetailFragment = StepDetailFragment.newInstance()
@@ -25,4 +23,5 @@ class StepDetailActivity : AppCompatActivity() {
           stepDetailFragment).commit()
     }
   }
+
 }

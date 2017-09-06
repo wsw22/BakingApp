@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView
 import com.example.wsw.bakingapp.GlideApp
 import com.example.wsw.bakingapp.R
 import com.example.wsw.bakingapp.R.layout
+import com.example.wsw.bakingapp.checkNetwork
 import com.example.wsw.bakingapp.repository.Status.ERROR
 import com.example.wsw.bakingapp.repository.Status.LOADING
 import com.example.wsw.bakingapp.repository.Status.SUCCESS
@@ -59,12 +60,14 @@ class RecipeListActivity : AppCompatActivity(), LifecycleRegistryOwner {
 
       if (resource.status == SUCCESS) {
         adapter.setData(resource.data)
+      } else if (!checkNetwork()) {
+        loading_data_message.text = getString(R.string.message_no_connection)
       } else if (resource.status == ERROR) {
-        loading_data_message.text = resource.message ?: getString(
-            R.string.message_fail_get_data)
+        loading_data_message.text = resource.message ?: getString(R.string.message_fail_get_data)
       }
     })
   }
 
   override fun getLifecycle() = lifecycleRegistry
+
 }

@@ -47,7 +47,9 @@ class RecipeListDeserializer : JsonDeserializer<RecipeListResponse> {
       val description: String = item["description"].asString
       val videoURL: String = item["videoURL"].asString
       val thumbnailURL: String? = item["thumbnailURL"].asString
-      stepList.add(Step(null, shortDescription, description, videoURL, thumbnailURL, recipeId))
+      val order: Int = item["id"].asInt
+      stepList.add(
+          Step(null, shortDescription, description, videoURL, thumbnailURL, order, recipeId))
     }
 
     return RecipeListResponse(recipe, ingredientList, stepList)

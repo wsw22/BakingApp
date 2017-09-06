@@ -10,7 +10,7 @@ import android.arch.persistence.room.PrimaryKey
     tableName = Step.TABLE_NAME,
     indices = arrayOf(
         Index(
-            value = *arrayOf(Step.RECIPE_ID, Step.SHORT_DESCRIPTION),
+            value = *arrayOf(Step.RECIPE_ID, Step.ORDER),
             unique = true
         )),
     foreignKeys = arrayOf(
@@ -28,6 +28,7 @@ data class Step(
     @ColumnInfo(name = DESCRIPTION) val description: String,
     @ColumnInfo(name = VIDEO_URL) val videoURL: String,
     @ColumnInfo(name = THUMBNAIL_URL) val thumbnailURL: String?,
+    @ColumnInfo(name = ORDER) val order: Int,
     @ColumnInfo(name = RECIPE_ID) val recipe_id: Int) {
 
   companion object {
@@ -38,6 +39,7 @@ data class Step(
     const val DESCRIPTION = "description"
     const val VIDEO_URL = "video_url"
     const val THUMBNAIL_URL = "thumbnail_url"
+    const val ORDER = "order"
 
     const val RECIPE_ID = "recipe_id"
   }

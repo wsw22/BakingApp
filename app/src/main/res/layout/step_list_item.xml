@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="?listPreferredItemHeight"
-    android:orientation="vertical"
+    android:minHeight="?android:attr/listPreferredItemHeight"
     >
 
   <TextView
-      android:id="@+id/step_list_item_name_text"
+      android:id="@+id/step_list_item_order_text"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:paddingLeft="@dimen/margin_horizontal"
+      android:paddingRight="@dimen/margin_horizontal"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toLeftOf="@id/step_list_item_name_text"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="order"
       />
 
-</LinearLayout>
+  <TextView
+      android:id="@+id/step_list_item_name_text"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toRightOf="@id/step_list_item_order_text"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="name"
+      />
+
+</android.support.constraint.ConstraintLayout>

@@ -9,6 +9,7 @@ import com.example.wsw.bakingapp.data.entity.Step
 import com.example.wsw.bakingapp.inflate
 import com.example.wsw.bakingapp.ui.step.StepListAdapter.StepHolder
 import kotlinx.android.synthetic.main.step_list_item.view.step_list_item_name_text
+import kotlinx.android.synthetic.main.step_list_item.view.step_list_item_order_text
 
 /**
  * Created by wsw on 17-7-27.
@@ -49,6 +50,7 @@ class StepListAdapter(private var data: List<Step>?,
 
   inner class StepHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(item: Step?) = with(itemView) {
+      step_list_item_order_text.text = item?.order.toString()
       step_list_item_name_text.text = item?.shortDescription
       setOnClickListener { listener(item) }
     }

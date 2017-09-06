@@ -6,6 +6,7 @@ import android.support.annotation.MainThread
 import android.support.annotation.WorkerThread
 import com.example.wsw.bakingapp.AppExecutors
 import com.example.wsw.bakingapp.api.ApiResponse
+import timber.log.Timber
 
 /**
  * Created by wsw on 17-8-21.
@@ -24,8 +25,10 @@ abstract class NetworkBoundResource<ResultType, RequestType> @MainThread constru
     result.addSource(dbSource) { data ->
       result.removeSource(dbSource)
       if (shouldFetch(data)) {
+        Timber.e("should fetch")
         fetchFromNetwork(dbSource)
       } else {
+        Timber.e("do not need fetch")
         result.addSource(dbSource) { newData ->
           result.value = Resource.success(newData)
         }

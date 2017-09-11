@@ -17,36 +17,36 @@ import javax.inject.Inject
  *
  * view model for step detail activity
  */
-class StepDetailViewModel(myApp: Application) : AndroidViewModel(myApp) {
-  @Inject
-  lateinit var repo: RecipeRepo
-
-  private val stepID = MutableLiveData<Int>()
-
-  val step: LiveData<Resource<Step>>
-
-  init {
-    if (myApp is MyApp) {
-      myApp.appComponent.inject(this)
-    } else {
-      throw IllegalArgumentException("application must be MyApp")
-    }
-
-    step = Transformations.switchMap(stepID) { newStepId ->
-      if (newStepId == null) {
-        return@switchMap AbsentLiveData<Resource<Step>>()
-      }
-      return@switchMap repo.loadStep(newStepId)
-    }
-  }
-
-  fun setStepId(newId: Int) {
-    if (newId < 0) {
-      return
-    }
-    if (newId == stepID.value) {
-      return
-    }
-    stepID.value = newId
-  }
-}
+//class StepDetailViewModel(myApp: Application) : AndroidViewModel(myApp) {
+//  @Inject
+//  lateinit var repo: RecipeRepo
+//
+//  private val stepID = MutableLiveData<Int>()
+//
+//  val step: LiveData<Resource<Step>>
+//
+//  init {
+//    if (myApp is MyApp) {
+//      myApp.appComponent.inject(this)
+//    } else {
+//      throw IllegalArgumentException("application must be MyApp")
+//    }
+//
+//    step = Transformations.switchMap(stepID) { newStepId ->
+//      if (newStepId == null) {
+//        return@switchMap AbsentLiveData<Resource<Step>>()
+//      }
+//      return@switchMap repo.loadStep(newStepId)
+//    }
+//  }
+//
+//  fun setStepId(newId: Int) {
+//    if (newId < 0) {
+//      return
+//    }
+//    if (newId == stepID.value) {
+//      return
+//    }
+//    stepID.value = newId
+//  }
+//}

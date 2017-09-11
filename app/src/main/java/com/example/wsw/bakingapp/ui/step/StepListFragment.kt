@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.loading_data.loading_data_message
 import kotlinx.android.synthetic.main.loading_data.loading_data_progress
 import kotlinx.android.synthetic.main.step_list_fragment.step_list_recycler
 import kotlinx.android.synthetic.main.step_list_fragment.view.step_list_recycler
+import timber.log.Timber
 import java.util.Collections
 
 class StepListFragment : Fragment(), LifecycleRegistryOwner {
@@ -41,14 +42,17 @@ class StepListFragment : Fragment(), LifecycleRegistryOwner {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    val viewModel = ViewModelProviders.of(activity).get(
-        RecipeDetailViewModel::class.java)
+    val viewModel = ViewModelProviders.of(activity).get(RecipeDetailViewModel::class.java)
 
     val adapter = StepListAdapter(Collections.emptyList()) {
-      val intentStartStepDetailActivity = Intent(context, StepDetailActivity::class.java)
-      // todo handle tablet
-      intentStartStepDetailActivity.putExtra(StepDetailFragment.STEP_ID, it!!.id)
-      startActivity(intentStartStepDetailActivity)
+      val isTwoPane = resources.getBoolean(R.bool.is_two_pane)
+      if (isTwoPane) {
+        viewModel.setStepId(it?.id ?: -1)
+      } else {
+        val intentStartStepDetailActivity = Intent(context, StepDetailActivity::class.java)
+        intentStartStepDetailActivity.putExtra(StepDetailFragment.STEP_ID, it!!.id)
+        startActivity(intentStartStepDetailActivity)
+      }
     }
     step_list_recycler.adapter = adapter
 

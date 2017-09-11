@@ -16,7 +16,7 @@ import com.example.wsw.bakingapp.repository.Status.ERROR
 import com.example.wsw.bakingapp.repository.Status.LOADING
 import com.example.wsw.bakingapp.repository.Status.SUCCESS
 import com.example.wsw.bakingapp.setVisible
-import com.example.wsw.bakingapp.viewModel.StepDetailViewModel
+import com.example.wsw.bakingapp.viewModel.RecipeDetailViewModel
 import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
@@ -50,15 +50,13 @@ class StepDetailFragment : Fragment(), LifecycleRegistryOwner, HasSupportFragmen
   @Inject
   lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
 
-  var player: SimpleExoPlayer? = null
-  var uri: Uri? = null
+  private var player: SimpleExoPlayer? = null
+  private var uri: Uri? = null
 
   override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
     val rootView = inflater!!.inflate(R.layout.step_detail_fragment, container, false)
-    val viewModel = ViewModelProviders.of(activity).get(StepDetailViewModel::class.java)
-    // todo handle tablet
-//    val viewModel = ViewModelProviders.of(activity).get(RecipeDetailActivity::class.java)
+    val viewModel = ViewModelProviders.of(activity).get(RecipeDetailViewModel::class.java)
 
     viewModel.step.observe(this, Observer { resource ->
       if (resource?.data == null) {

@@ -2,17 +2,22 @@ package com.example.wsw.bakingapp.ui
 
 import android.arch.lifecycle.LifecycleRegistry
 import android.arch.lifecycle.LifecycleRegistryOwner
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.example.wsw.bakingapp.R
+import com.example.wsw.bakingapp.data.entity.Step
+import com.example.wsw.bakingapp.repository.Resource
+import com.example.wsw.bakingapp.ui.step.StepDetailFragment
 import com.example.wsw.bakingapp.viewModel.RecipeDetailViewModel
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.recipe_detail_activity.recipe_detail_pager
 import kotlinx.android.synthetic.main.recipe_detail_activity.recipe_detail_tabs
+import timber.log.Timber
 import javax.inject.Inject
 
 class RecipeDetailActivity : AppCompatActivity(), LifecycleRegistryOwner, HasSupportFragmentInjector {
@@ -40,6 +45,15 @@ class RecipeDetailActivity : AppCompatActivity(), LifecycleRegistryOwner, HasSup
         supportFragmentManager)
 
     recipe_detail_tabs.setupWithViewPager(recipe_detail_pager)
+
+    val isTwoPane = resources.getBoolean(R.bool.is_two_pane)
+    if (isTwoPane) {
+      if (savedInstanceState == null) {
+        val stepDetailFragment = StepDetailFragment.newInstance()
+        supportFragmentManager.beginTransaction().add(R.id.step_detail_fragment_container,
+            stepDetailFragment).commit()
+      }
+    }
   }
 
   override fun getLifecycle() = lifecycle

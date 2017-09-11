@@ -42,7 +42,8 @@ class RecipeListActivity : AppCompatActivity(), LifecycleRegistryOwner {
     }
     recipe_list_recycler.adapter = adapter
 
-    val gridLayoutManager: RecyclerView.LayoutManager = GridLayoutManager(this, 2)
+    val spanCount = resources.getInteger(R.integer.recipe_span_count)
+    val gridLayoutManager: RecyclerView.LayoutManager = GridLayoutManager(this, spanCount)
     recipe_list_recycler.layoutManager = gridLayoutManager
 
     viewModel.recipeList.observe(this, Observer { resource ->
